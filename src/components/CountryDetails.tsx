@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6rem;
+  background-color: ${(props) => props.theme.backgroundColor};
   
   @media ${device.tablet} {
     flex-direction: row;
@@ -72,6 +73,7 @@ const BorderCountriesWrapper = styled.div`
   gap: 1rem;
   @media ${device.tablet} {
     flex-direction: row;
+    margin-top: 3rem;
   }
 `;
 const BorderCountryHeader = styled.h2`
@@ -90,6 +92,7 @@ const BorderCountriesListItem = styled.li`
   padding: 0.5em 1em;
   border-radius: 0.2rem;
   text-align: center;
+  background-color: ${(props) => props.theme.elementColor};
   &:hover {
     cursor: pointer;
   }

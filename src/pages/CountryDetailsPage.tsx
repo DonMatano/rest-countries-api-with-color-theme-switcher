@@ -5,6 +5,7 @@ import { device } from '../styles/mediaQueries';
 
 const CountryDetailsWrapper = styled.div`
   padding: 3rem;
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 const BackButton = styled.button`
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.293139);
