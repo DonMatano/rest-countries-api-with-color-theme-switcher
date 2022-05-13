@@ -1,46 +1,81 @@
-# Getting Started with Create React App
+# Frontend Mentor - REST Countries API with color theme switcher solution
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
 
-## Available Scripts
+## Table of contents
 
-In the project directory, you can run:
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Continued development](#continued-development)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
+- [Acknowledgments](#acknowledgments)
 
-### `npm start`
+## Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### The challenge
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Users should be able to:
 
-### `npm test`
+- See all countries from the API on the homepage
+- Search for a country using an `input` field
+- Filter countries by region
+- Click on a country to see more detailed information on a separate page
+- Click through to the border countries on the detail page
+- Toggle the color scheme between light and dark mode *(optional)*
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Screenshot
 
-### `npm run build`
+![Mobile home](./screenshots/mobile-home.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Mobile Detail](./screenshots/mobile-detail.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Mobile home dark](./screenshots/mobile-home-dark.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Mobile Detail dark](./screenshots/mobile-detail-dark.png)
 
-### `npm run eject`
+![home desktop](./screenshots/desktop-home.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![detail desktop](./screenshots/desktop-detail.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![home desktop dark](./screenshots/desktop-home-dark.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![detail desktop dark](./screenshots/desktop-detail-dark.png)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Links
 
-## Learn More
+- Solution URL: [Solution](https://www.frontendmentor.io/solutions/country-rest-api-with-react-styled-components-router-and-typescript-HJdfee3Uq)
+- Live Site URL: [Live site](https://mata-where-in-the-world.vercel.app/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## My process
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Built with
+
+- [React](https://reactjs.org/) - JS library
+- React Router
+- [Styled Components](https://styled-components.com/) - For styles
+- Typescript
+- Flexbox
+- CSS Grid
+- Mobile-first workflow
+
+### What I learned
+
+I was able to refresh myself on my knowledge of working with React and hooks.
+Also, was able to work with Typescript, React Router and styled components libraries.
+
+
+I was able to know a way to store data in the localstorage to save on making many calls to the 
+server. This saved the user bandwidth and reduced the load to the server.
+
+I was able to learn on how to make a theme toggle for a site.
+
+## Author
+
+- Frontend Mentor - [@DonMatano](https://www.frontendmentor.io/profile/DonMatano)
+- Twitter - [@MMatano5](https://www.twitter.com/mmatano5)
