@@ -7,9 +7,13 @@ export const GlobalStyles = createGlobalStyle`
     color: ${(props) => props.theme.textColor};
     min-width: 100%;
     overflow-x: hidden;
+    background-color: ${(props) => props.theme.backgroundColor};
   }
   body {
     font-size: 1.4rem;
     min-width: 100%;
+  }
+  *{
+    transition: background-color 100ms ease-in;
   }
 `;

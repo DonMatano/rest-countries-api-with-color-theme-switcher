@@ -1,15 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import Country from '../types/Country';
+import { addCommasToNumber, formatListOfWords } from '../helpers/formatters';
 
 const ListItem = styled.li`
   background-color: ${(props) => props.theme.elementColor};
   border-radius: 0.5rem;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const FlagImage = styled.img`
   border-top-right-radius: 0.5rem;
   border-top-left-radius: 0.5rem;
   aspect-ratio: 16/9;
+  min-width: 100%;
+  //border-bottom: ${(props) => props.theme.imageBottomBorder};
 `;
 
 const CountryDetails = styled.div`
@@ -34,24 +42,34 @@ const Value = styled.span`
   font-weight: 300;
 `;
 
-const CountryListItem = () : JSX.Element => (
+type CountryListItemProps = {
+  country: Country
+}
+
+const CountryListItem = ({ country }: CountryListItemProps) : JSX.Element => (
   <ListItem>
-    <FlagImage src="https://flagcdn.com/ke.svg" alt="kenya flag" />
-    <CountryDetails>
-      <CountryTitle>Kenya</CountryTitle>
-      <ValueTitle>
-        Population:
-        <Value>53,771,300</Value>
-      </ValueTitle>
-      <ValueTitle>
-        Region:
-        <Value>Africa</Value>
-      </ValueTitle>
-      <ValueTitle>
-        Capital:
-        <Value>Nairobi</Value>
-      </ValueTitle>
-    </CountryDetails>
+    <Link to={`/country/${country.code}`}>
+      <FlagImage
+        src={country.flagPNG}
+        alt={`${country.name} flag`}
+        loading="lazy"
+      />
+      <CountryDetails>
+        <CountryTitle>{country.name}</CountryTitle>
+        <ValueTitle>
+          Population:
+          <Value>{addCommasToNumber(country.population)}</Value>
+        </ValueTitle>
+        <ValueTitle>
+          Region:
+          <Value>{country.region}</Value>
+        </ValueTitle>
+        <ValueTitle>
+          Capital:
+          <Value>{formatListOfWords(country.capital)}</Value>
+        </ValueTitle>
+      </CountryDetails>
+    </Link>
   </ListItem>
 );
 

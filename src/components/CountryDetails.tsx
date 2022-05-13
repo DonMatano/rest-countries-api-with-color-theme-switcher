@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { device } from '../styles/mediaQueries';
+import Country, { BorderCountry } from '../types/Country';
+import { addCommasToNumber, formatListOfWords } from '../helpers/formatters';
 
 // noinspection CssUnknownProperty
 const Wrapper = styled.div`
@@ -23,8 +26,7 @@ const FlagImage = styled.img`
   @media ${device.tablet} {
     border-radius: 1rem;
     aspect-ratio: 14/10;
-    max-width: 45%;
-    max-height: 40rem;
+    width: 45%;
   }
 `;
 const CountryTitle = styled.h1`
@@ -97,72 +99,81 @@ const BorderCountriesListItem = styled.li`
     cursor: pointer;
   }
 `;
-const BorderCountryLink = styled.a`
-`;
 
-const CountryDetails = () : JSX.Element => (
+type CountryDetailsProps = {
+  country: Country,
+  borderCountries: BorderCountry[]
+}
+
+const CountryDetails = ({ country, borderCountries } : CountryDetailsProps) : JSX.Element => (
   <Wrapper>
-    <FlagImage src="https://flagcdn.com/ke.svg" alt="kenya flag" />
+    <FlagImage src={country.flagSVG} alt={`${country.name} flag`} />
     <DetailsSide>
-      <CountryTitle>Kenya</CountryTitle>
+      <CountryTitle>{country.name}</CountryTitle>
       <CountryDetailsWrapper>
         <CountryDetailSection>
           <CountryDetailParagraph>
             Native Name:
-            <CountryDetailValue>Kenya</CountryDetailValue>
+            {country.nativeName
+              ? (
+                <CountryDetailValue>
+                  {formatListOfWords(country.nativeName)}
+                </CountryDetailValue>
+              )
+              : <CountryDetailValue>N/A</CountryDetailValue>}
           </CountryDetailParagraph>
           <CountryDetailParagraph>
             Population:
-            <CountryDetailValue>53,771,300</CountryDetailValue>
+            <CountryDetailValue>{addCommasToNumber(country.population)}</CountryDetailValue>
           </CountryDetailParagraph>
           <CountryDetailParagraph>
             Region:
-            <CountryDetailValue>Africa</CountryDetailValue>
+            <CountryDetailValue>{country.region}</CountryDetailValue>
           </CountryDetailParagraph>
           <CountryDetailParagraph>
             Sub Region:
-            <CountryDetailValue>Eastern Africa</CountryDetailValue>
+            <CountryDetailValue>{country.subRegion}</CountryDetailValue>
           </CountryDetailParagraph>
           <CountryDetailParagraph>
             Capital:
-            <CountryDetailValue>Nairobi</CountryDetailValue>
+            <CountryDetailValue>{formatListOfWords(country.capital)}</CountryDetailValue>
           </CountryDetailParagraph>
         </CountryDetailSection>
         <CountryDetailSection>
           <CountryDetailParagraph>
             Top Level Domain:
-            <CountryDetailValue>.ke</CountryDetailValue>
+            <CountryDetailValue>{country.topLevelDomain}</CountryDetailValue>
           </CountryDetailParagraph>
           <CountryDetailParagraph>
             Currencies:
-            <CountryDetailValue>Kenyan shilling</CountryDetailValue>
+            <CountryDetailValue>{formatListOfWords(country.currencies)}</CountryDetailValue>
           </CountryDetailParagraph>
           <CountryDetailParagraph>
             Languages:
-            <CountryDetailValue>English, Swahili</CountryDetailValue>
+            <CountryDetailValue>{formatListOfWords(country.languages)}</CountryDetailValue>
           </CountryDetailParagraph>
         </CountryDetailSection>
       </CountryDetailsWrapper>
-      <BorderCountriesWrapper>
-        <BorderCountryHeader>Border Countries:</BorderCountryHeader>
-        <BorderCountriesList>
-          <BorderCountriesListItem>
-            <BorderCountryLink href="#">Ethiopia</BorderCountryLink>
-          </BorderCountriesListItem>
-          <BorderCountriesListItem>
-            <BorderCountryLink href="#">Somalia</BorderCountryLink>
-          </BorderCountriesListItem>
-          <BorderCountriesListItem>
-            <BorderCountryLink href="#">South Sudan</BorderCountryLink>
-          </BorderCountriesListItem>
-          <BorderCountriesListItem>
-            <BorderCountryLink href="#">Tanzania</BorderCountryLink>
-          </BorderCountriesListItem>
-          <BorderCountriesListItem>
-            <BorderCountryLink href="#">Uganda</BorderCountryLink>
-          </BorderCountriesListItem>
-        </BorderCountriesList>
-      </BorderCountriesWrapper>
+      { borderCountries.length
+        ? (
+          <BorderCountriesWrapper>
+            <BorderCountryHeader>Border Countries:</BorderCountryHeader>
+            <BorderCountriesList>
+              {
+                  borderCountries.map((borderCountry) => (
+                    <BorderCountriesListItem key={borderCountry.code}>
+                      <Link 
+                        reloadDocument
+                        to={`/country/${borderCountry.code}`}
+                      >
+                        {borderCountry.name}
+                      </Link>
+                    </BorderCountriesListItem>
+                  ))
+                }
+            </BorderCountriesList>
+          </BorderCountriesWrapper>
+        ) : null}
     </DetailsSide>
 
   </Wrapper>

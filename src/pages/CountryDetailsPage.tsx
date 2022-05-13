@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Link, useParams } from 'react-router-dom';
 import CountryDetails from '../components/CountryDetails';
 import { device } from '../styles/mediaQueries';
+import Country, { BorderCountry } from '../types/Country';
+import { CountriesRepository } from '../Repositories/CountriesRepository';
 
 const CountryDetailsWrapper = styled.div`
   padding: 3rem;
@@ -13,6 +16,9 @@ const BackButton = styled.button`
   font-weight: 300;
   line-height: 2rem;
   text-align: center;
+  &:hover {
+    cursor: pointer;
+  }
   border-radius: 0.2rem;
   background-color: ${(props) => props.theme.elementColor};
   @media ${device.tablet} {
@@ -20,11 +26,47 @@ const BackButton = styled.button`
   }
 `;
 
-const CountryDetailsPage = () : JSX.Element => (
-  <CountryDetailsWrapper>
-    <BackButton> &larr; Back </BackButton>
-    <CountryDetails />
-  </CountryDetailsWrapper>
-);
+const CountryDetailsPage = () : JSX.Element => {
+  const countriesRepository = new CountriesRepository();
+  const params = useParams();
+  const [codeParams] = useState(params.code as string);
+  const [country, setCountry] = useState<Country | undefined>(undefined);
+  const [borderCountries, setBorderCountries] = useState<BorderCountry[]>([]);
+  const getCountryByCode = async (code: string): Promise<Country | undefined> => (
+    countriesRepository.getCountryByCode(code)
+  );
+  const setBoundaryCountriesOfCountry = async ():Promise<void> => {
+    if (!country) {
+      setBorderCountries([]);
+      return;
+    }
+    const countriesPromises = country
+      .borders.map((countryCode) => countriesRepository.getCountryByCode(countryCode));
+    const results = await Promise.all(countriesPromises);
+    const definedCountries = results.filter((resCountry) => resCountry !== undefined) as Country[];
+    const borderCountryList: BorderCountry[] = definedCountries.map(
+      ({ code, name }) => ({ code, name }),
+    );
+    setBorderCountries(borderCountryList);
+  };
+  const getCountry = async (): Promise<void> => {
+    const gottenCountry = await getCountryByCode(codeParams);
+    setCountry(gottenCountry);
+  };
+  useEffect(() => {
+    getCountry();
+  }, [codeParams]);
+  useEffect(() => {
+    setBoundaryCountriesOfCountry();
+  }, [country?.borders]);
+  return (
+    <CountryDetailsWrapper>
+      <Link to="/">
+        <BackButton> &larr; Back </BackButton>
+      </Link>
+      {country && <CountryDetails country={country} borderCountries={borderCountries} />}
+    </CountryDetailsWrapper>
+  ); 
+};
 
 export default CountryDetailsPage;

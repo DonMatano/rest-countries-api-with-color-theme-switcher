@@ -26,12 +26,22 @@ const SearchIcon = styled.i`
   color: hsla(0, 0%, 52%, 1);
 `;
 
-const CountrySearchInput = (): JSX.Element => (
+type CountrySearchInputProps = {
+  searchName: string,
+  setSearchName: React.Dispatch<React.SetStateAction<string>>,
+}
+
+// eslint-disable-next-line max-len
+const CountrySearchInput = ({ searchName, setSearchName }: CountrySearchInputProps): JSX.Element => (
   <SearchWrapper>
     <SearchIcon
       className="fa-solid fa-magnifying-glass"
     />
-    <SearchInput placeholder="Search for a country..." />
+    <SearchInput
+      placeholder="Search for a country..."
+      value={searchName}
+      onInput={(event) => setSearchName(event.currentTarget.value)}
+    />
   </SearchWrapper>
 );
 

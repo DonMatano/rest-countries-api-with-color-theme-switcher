@@ -5,5 +5,6 @@ declare module 'styled-components' {
       elementColor: string,
       backgroundColor: string,
       textColor: string,
+      imageBottomBorder: string,
     }
 }
